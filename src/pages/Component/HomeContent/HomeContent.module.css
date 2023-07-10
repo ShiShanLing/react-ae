@@ -1,0 +1,87 @@
+
+.contentBox{
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    overflow:hidden;
+    width: 100%;
+    bottom: 0;
+    
+}
+
+.tableBox {
+    overflow: scroll;
+    width: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 50px;
+    
+}
+
+.table {
+    width: 100%;
+}
+
+
+.headerFilterBox {
+
+    padding-left: 10px;
+    
+    width: 70px;
+    height: auto;
+
+}
+
+.headerFilterIcon {
+    margin-left: -5px;
+    position: absolute;
+    left: 0;
+    top: 0;
+
+}
+
+.pendingBox {
+    width: 130px;
+
+    background-color: #f94883;
+    transform: rotate(50deg) !important;
+    position: absolute;
+    top: -10px;
+    text-align: center;
+    right: -47px;
+    color: #fff;
+    z-index: 100;
+    box-shadow: 1px 1px 6px #999;
+    cursor: pointer;
+    transition: .2s;
+    padding-top: 40px;
+    padding-bottom: 10px;
+    overflow: hidden;
+}
+
+.paginationBox{
+    background-color: white;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 50px;
+    /* display: none; */
+}
+
+.pagination{
+    background-color: white;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    box-sizing: border-box;
+    height: 50px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    
+    
+}

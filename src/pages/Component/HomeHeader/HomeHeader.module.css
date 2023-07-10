@@ -1,0 +1,41 @@
+.headerBox{
+    width: 100%;
+    height: 58px;
+    background-color: #ee6736;
+    display: flex;
+    
+}
+
+.menuButton{
+   float: left;
+   margin-left: 10px;
+   align-self: center;
+}
+
+.aeLogo{
+    font-size: 24px;
+    font-weight: 900;
+    color: white;
+    align-self: center;
+}
+
+.logOut{
+    position: absolute;
+    
+    right: 15px;
+    width: 40px;
+    height: 40px;
+    color: white;
+    font-size: 20px;
+    align-self: center;
+}
+
+.logoImg{
+    position: absolute;
+    right: 55px;
+    width: 40px;
+    height: 40px;
+    float: right;
+    align-self: center;
+    
+}

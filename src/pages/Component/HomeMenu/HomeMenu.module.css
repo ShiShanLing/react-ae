@@ -1,0 +1,16 @@
+
+
+
+
+.menu{
+    width: 170px;
+    height: 100%;
+    background-color: white;
+    box-shadow: 7px 0px 7px -7px #5E5E5E; 
+}
+.menuCollapsed{
+    width: 80px;
+    height: 100%;
+    background-color: white;
+    box-shadow: 7px 0px 7px -7px #5E5E5E; 
+}
