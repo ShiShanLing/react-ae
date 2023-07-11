@@ -126,7 +126,7 @@ export const projectInfoList:TextFieldInfo[] = [
 
 //药物和安全性信息
 
-export const medicineInfoList = [
+export const medicineInfoList:TextFieldInfo[] = [
     {
         id: "eventID",
         width: "45%",
@@ -163,4 +163,5 @@ export const medicineInfoList = [
         label: "* 批号",
         defaultValue: "",
     },
+   
 ]

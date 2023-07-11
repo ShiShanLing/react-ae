@@ -8,7 +8,7 @@ import { AccountCircle, Visibility, VisibilityOff } from '@material-ui/icons';
 import { Form } from 'antd';
 
 import React, { useState } from 'react';
-import { IFormInput, TextFieldInfo, ActionTypeEnum, OtherOptionEnum, projectInfoList } from './data';
+import { IFormInput, TextFieldInfo, ActionTypeEnum, OtherOptionEnum, projectInfoList, medicineInfoList } from './data';
 import { request } from 'http';
 import { BorderOutlined, CheckSquareTwoTone } from '@ant-design/icons';
 import { log } from 'console';
@@ -98,141 +98,126 @@ const FormDisabledDemo: React.FC = () => {
         }
     })
 
+    const validDateUnknown_test = "validDate";
 
-    const projectTFs = () => {
-        return (
-            <>
-                {/*  */}
+
+    const UnknownInput = ({ key, setKey }) => {
+        return {
+            endAdornment: (
+                <InputAdornment position="end">
+                    <IconButton
+                        style={{ marginTop: -2 }}
+                        onClick={() => {
+                            setTfAction({
+                                ...tfAction,
+                                [key]: !tfAction[key]
+                            })
+                        }}
+                    >
+                        {!tfAction.validDateUnknown ? <BorderOutlined style={{ fontSize: '18px', color: 'red' }} /> : <CheckSquareTwoTone twoToneColor='#f50057' style={{ fontSize: '18px' }} />}
+                    </IconButton>
+                    <FormLabel component="legend"
+                        style={{ color: '#666', fontSize: 14, marginBottom: 0, marginLeft: -10, marginRight: 0, borderBottom: "0", width: 'auto', height: '40px', lineHeight: '40px' }}
+                    >不详</FormLabel>
+                </InputAdornment>
+            ),
+        }
+    }
+
+
+    const medicineTFList = medicineInfoList.map((value) => {
+        if (value.id === 'validDate') {
+            return (
                 <TextField
-                    {...register("infoReceiveDate",
-                        { required: true })}
+                    {...register("validDate", { required: true })}
+                    disabled={tfAction.validDateUnknown}
                     color="secondary"
-                    id="infoReceiveDate"
-                    label="* 该机构是什么时候接收到安全性信息的（年/月/日）？"
-                    type="date"
-                    defaultValue="2020/9/11"
-                    style={{ ...{ width: "57%" }, ...{ marginBottom: 10, paddingRight: 10 } }}
-                    InputLabelProps={{
-                        shrink: true,
+                    id={value.id}
+                    label={<div style={{ fontSize: 13, float: 'left' }}>
+                        {value.label}
+                    </div>}
+                    type='date'
+                    defaultValue=''
+                    InputLabelProps={{ shrink: true }}
+                    onChange={() => {
+                        console.log("onChange----", register);
+                        //
+                        // handleSubmit(onSubmit)
+                    }}
+                    style={{ ...{ width: value.width }, ...{ marginBottom: 10, paddingRight: 10 } }}
+                    InputProps={{
+                        endAdornment: (
+                            <InputAdornment position="end">
+                                <IconButton
+                                    style={{ marginTop: -2 }}
+                                    onClick={() => {
+                                        setTfAction({
+                                            ...tfAction,
+                                            validDateUnknown: !tfAction.validDateUnknown
+                                        })
+                                    }}
+                                >
+                                    {!tfAction.validDateUnknown ? <BorderOutlined style={{ fontSize: '18px', color: 'red' }} /> : <CheckSquareTwoTone twoToneColor='#f50057' style={{ fontSize: '18px' }} />}
+                                </IconButton>
+                                <FormLabel component="legend"
+                                    style={{ color: '#666', fontSize: 14, marginBottom: 0, marginLeft: -10, marginRight: 0, borderBottom: "0", width: 'auto', height: '40px', lineHeight: '40px' }}
+                                >不详</FormLabel>
+                            </InputAdornment>
+                        )
                     }}
                 />
-                <TextField
-                    {...register("orgName",
-                        { required: true })}
-                    required
-                    style={{ ...{ width: "33%" }, ...{ marginBottom: 10, paddingRight: 10 } }}
-                    color="secondary"
-                    id="reporterNo"
-                    label={<div style={{ fontSize: 13, float: 'left' }}>* 项目名称/机构编号</div>}
-                    defaultValue="压力测试号"
-                />
-                <TextField
-                    {...register("reporterNo",
-                        { required: true })}
-                    required
-                    style={{ ...{ width: "30%" }, ...{ marginBottom: 10, paddingRight: 10 } }}
-                    color="secondary"
-                    id="reporterNo"
-                    label={<div style={{ fontSize: 13, float: 'left' }}>* 报告者识别号</div>}
-                    defaultValue="yuanqiao"
-                />
-                <TextField
-                    {...register("orgAddress",
-                        { required: true })}
-                    required
-                    style={{ ...{ width: "30%" }, ...{ marginBottom: 10, paddingRight: 10 } }}
-                    color="secondary"
-                    id="orgAddress"
-                    label={<div style={{ fontSize: 13, float: 'left' }}>* 机构名称和地址</div>}
-                    defaultValue="NA"
-                />
-                <TextField
-                    {...register("itemNumber",
-                        { required: true })}
-                    required
-                    style={{ ...{ width: "30%" }, ...{ marginBottom: 10, paddingRight: 10 } }}
-                    color="secondary"
-                    id="itemNumber"
-                    label={<div style={{ fontSize: 13, float: 'left' }}>
-                        * 项目编号/活动识别号
-                    </div>}
-                    defaultValue="NA"
-                />
-                <TextField
-                    {...register("WISECode",
-                        { required: true })}
-                    required
-                    style={{ ...{ width: "30%" }, ...{ marginBottom: 10, paddingRight: 10 } }}
-                    color="secondary"
-                    id="WISECode"
-                    label={<div style={{ fontSize: 13, float: 'left' }}>
-                        * WISE编码（针对市场研究项目）
-                    </div>}
-                    defaultValue="NA"
-                />
-                <TextField
-                    {...register("orgTel",
-                        { required: true })}
-                    required
-                    style={{ ...{ width: "30%" }, ...{ marginBottom: 10, paddingRight: 10 } }}
-                    color="secondary"
-                    id="orgTel"
-                    label={<div style={{ fontSize: 13, float: 'left' }}>
-                        * 机构电话
-                    </div>}
-                    defaultValue="NA"
-                />
-                <TextField
-                    {...register("ChimAERa",
-                        { required: true })}
-                    required
-                    style={{ ...{ width: "30%" }, ...{ marginBottom: 10, paddingRight: 10 } }}
-                    color="secondary"
-                    id="ChimAERa"
-                    label={<div style={{ fontSize: 13, float: 'left' }}>
-                        * ChimAERa编码（针对患者支持项目）
-                    </div>}
-                    defaultValue="NA"
-                />
-                <TextField
-                    {...register("orgEmail",
-                        { required: true })}
-                    required
-                    style={{ ...{ width: "30%" }, ...{ marginBottom: 10, paddingRight: 10 } }}
-                    color="secondary"
-                    id="orgEmail"
-                    label={<div style={{ fontSize: 13, float: 'left' }}>
-                        * 机构电邮
-                    </div>}
-                    defaultValue="NA"
-                />
-                <TextField
-                    {...register("orgLtdContact",
-                        { required: true })}
-                    required
-                    style={{ ...{ width: "30%" }, ...{ marginBottom: 10, paddingRight: 10 } }}
-                    color="secondary"
-                    id="orgLtdContact"
-                    label={<div style={{ fontSize: 13, float: 'left' }}>
-                        * 机构联系人姓名
-                    </div>}
-                    defaultValue="NA"
-                />
-                <TextField
-                    {...register("orgSignatureDate",
-                        { required: true })}
-                    required
-                    style={{ ...{ width: "30%" }, ...{ marginBottom: 10, paddingRight: 10 } }}
-                    color="secondary"
-                    id="orgSignatureDate"
-                    label={<div style={{ fontSize: 13, float: 'left' }}>
-                        "* 机构联系人签名和日期"
-                    </div>}
-                    defaultValue="NA"
-                />
-            </>
-        );
-    }
+            )
+        } else if (value.id === "eventID" || value.id === "eventProductName") {
+            <TextField
+                {...register(value.id,
+                    { required: true })}
+                required
+                disabled={tfAction.validDateUnknown}
+                style={{ ...{ width: value.width }, ...{ marginBottom: 10, paddingRight: 10 } }}
+                color="secondary"
+                id={value.id}
+                label={<div style={{ fontSize: 13, float: 'left' }}>
+                    {value.label}
+                </div>}
+                defaultValue=""
+            />
+        } else {
+            return <TextField
+                {...register(value.id,
+                    { required: true })}
+                required
+                style={{ ...{ width: value.width }, ...{ marginBottom: 10, paddingRight: 10 } }}
+                color="secondary"
+                id={value.id}
+                label={<div style={{ fontSize: 13, float: 'left' }}>
+                    {value.label}
+                </div>}
+                defaultValue=""
+                InputProps={{
+                    endAdornment: (
+                        <InputAdornment position="end">
+                            <IconButton
+                                style={{ marginTop: -2 }}
+                                onClick={() => {
+                                    setTfAction({
+                                        ...tfAction,
+                                        validDateUnknown: !tfAction.validDateUnknown
+                                    })
+                                }}
+                            >
+                                {!tfAction.validDateUnknown ? <BorderOutlined style={{ fontSize: '18px', color: 'red' }} /> : <CheckSquareTwoTone twoToneColor='#f50057' style={{ fontSize: '18px' }} />}
+                            </IconButton>
+                            <FormLabel component="legend"
+                                style={{ color: '#666', fontSize: 14, marginBottom: 0, marginLeft: -10, marginRight: 0, borderBottom: "0", width: 'auto', height: '40px', lineHeight: '40px' }}
+                            >不详</FormLabel>
+                        </InputAdornment>
+                    ),
+                }}
+
+            />
+        }
+    })
+
 
 
     const medicineTFs = (() => {
@@ -278,43 +263,9 @@ const FormDisabledDemo: React.FC = () => {
                     unknownClick={undefined}/>
                 </FormControl> */}
 
-
-                {/* <FormControl
-                    required
-                    style={{ ...{ width: "45%" }, ...{ marginBottom: 10, paddingRight: 10 } }}
-                    color="secondary"
-                >
-                    <InputLabel>* 有效日期-测试</InputLabel>
-                    <Input
-                        disabled={tfAction.validDateUnknown ? true : false}
-                        {...register('validDate')}
-                        id="productSymptom"
-                        type="date"
-                        defaultValue=""
-                        endAdornment={
-                            <InputAdornment position="end">
-                                <IconButton
-                                    style={{ marginTop: -2 }}
-                                    onClick={() => {
-                                        setTfAction({
-                                            ...tfAction,
-                                            validDateUnknown: !tfAction.validDateUnknown
-                                        })
-                                    }}
-                                >
-                                    {!tfAction.validDateUnknown ? <BorderOutlined style={{ fontSize: '18px', color: 'red' }} /> : <CheckSquareTwoTone twoToneColor='#f50057' style={{ fontSize: '18px' }} />}
-                                </IconButton>
-                                <FormLabel component="legend"
-                                    style={{ color: '#666', fontSize: 14, marginBottom: 0, marginLeft: -10, marginRight: 0, borderBottom: "0", width: 'auto', height: '40px', lineHeight: '40px' }}
-                                >不详</FormLabel>
-                            </InputAdornment>
-                        }
-                    />
-                </FormControl> */}
-
                 <TextField
                     {...register("validDate", { required: true })}
-                    disabled={tfAction.validDateUnknown}
+                    disabled={tfAction[validDateUnknown_test + "Unknown"]}
                     color="secondary"
                     id="validDate"
                     label={<div style={{ fontSize: 13, float: 'left' }}>
@@ -336,11 +287,11 @@ const FormDisabledDemo: React.FC = () => {
                                     onClick={() => {
                                         setTfAction({
                                             ...tfAction,
-                                            validDateUnknown: !tfAction.validDateUnknown
+                                            [validDateUnknown_test + "Unknown" ]: !tfAction[validDateUnknown_test + "Unknown"]
                                         })
                                     }}
                                 >
-                                    {!tfAction.validDateUnknown ? <BorderOutlined style={{ fontSize: '18px', color: 'red' }} /> : <CheckSquareTwoTone twoToneColor='#f50057' style={{ fontSize: '18px' }} />}
+                                    {!tfAction[validDateUnknown_test + "Unknown"] ? <BorderOutlined style={{ fontSize: '18px', color: 'red' }} /> : <CheckSquareTwoTone twoToneColor='#f50057' style={{ fontSize: '18px' }} />}
                                 </IconButton>
                                 <FormLabel component="legend"
                                     style={{ color: '#666', fontSize: 14, marginBottom: 0, marginLeft: -10, marginRight: 0, borderBottom: "0", width: 'auto', height: '40px', lineHeight: '40px' }}
@@ -477,13 +428,6 @@ const currentStyle = {
 //抽出input试试
 
 
-const UnknownInput = () => {
-    return (
-        <>
-
-        </>
-    )
-};
 
 
 
