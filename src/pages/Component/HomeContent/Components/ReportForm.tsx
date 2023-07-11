@@ -101,7 +101,7 @@ const FormDisabledDemo: React.FC = () => {
     const validDateUnknown_test = "validDate";
 
 
-    const UnknownInput = ({ key, setKey }) => {
+    const UnknownInput = (key:string) => {
         return {
             endAdornment: (
                 <InputAdornment position="end">
@@ -114,7 +114,7 @@ const FormDisabledDemo: React.FC = () => {
                             })
                         }}
                     >
-                        {!tfAction.validDateUnknown ? <BorderOutlined style={{ fontSize: '18px', color: 'red' }} /> : <CheckSquareTwoTone twoToneColor='#f50057' style={{ fontSize: '18px' }} />}
+                        {!tfAction[key] ? <BorderOutlined style={{ fontSize: '18px', color: 'red' }} /> : <CheckSquareTwoTone twoToneColor='#f50057' style={{ fontSize: '18px' }} />}
                     </IconButton>
                     <FormLabel component="legend"
                         style={{ color: '#666', fontSize: 14, marginBottom: 0, marginLeft: -10, marginRight: 0, borderBottom: "0", width: 'auto', height: '40px', lineHeight: '40px' }}
@@ -139,40 +139,16 @@ const FormDisabledDemo: React.FC = () => {
                     type='date'
                     defaultValue=''
                     InputLabelProps={{ shrink: true }}
-                    onChange={() => {
-                        console.log("onChange----", register);
-                        //
-                        // handleSubmit(onSubmit)
-                    }}
                     style={{ ...{ width: value.width }, ...{ marginBottom: 10, paddingRight: 10 } }}
-                    InputProps={{
-                        endAdornment: (
-                            <InputAdornment position="end">
-                                <IconButton
-                                    style={{ marginTop: -2 }}
-                                    onClick={() => {
-                                        setTfAction({
-                                            ...tfAction,
-                                            validDateUnknown: !tfAction.validDateUnknown
-                                        })
-                                    }}
-                                >
-                                    {!tfAction.validDateUnknown ? <BorderOutlined style={{ fontSize: '18px', color: 'red' }} /> : <CheckSquareTwoTone twoToneColor='#f50057' style={{ fontSize: '18px' }} />}
-                                </IconButton>
-                                <FormLabel component="legend"
-                                    style={{ color: '#666', fontSize: 14, marginBottom: 0, marginLeft: -10, marginRight: 0, borderBottom: "0", width: 'auto', height: '40px', lineHeight: '40px' }}
-                                >不详</FormLabel>
-                            </InputAdornment>
-                        )
-                    }}
+                    InputProps={UnknownInput("validDateUnknown")}
                 />
             )
         } else if (value.id === "eventID" || value.id === "eventProductName") {
-            <TextField
+            return (
+                <TextField
                 {...register(value.id,
                     { required: true })}
                 required
-                disabled={tfAction.validDateUnknown}
                 style={{ ...{ width: value.width }, ...{ marginBottom: 10, paddingRight: 10 } }}
                 color="secondary"
                 id={value.id}
@@ -181,11 +157,14 @@ const FormDisabledDemo: React.FC = () => {
                 </div>}
                 defaultValue=""
             />
+            )
         } else {
-            return <TextField
+            return (
+                <TextField
                 {...register(value.id,
                     { required: true })}
                 required
+                disabled={tfAction[value.id + "Unknown"]}
                 style={{ ...{ width: value.width }, ...{ marginBottom: 10, paddingRight: 10 } }}
                 color="secondary"
                 id={value.id}
@@ -193,28 +172,11 @@ const FormDisabledDemo: React.FC = () => {
                     {value.label}
                 </div>}
                 defaultValue=""
-                InputProps={{
-                    endAdornment: (
-                        <InputAdornment position="end">
-                            <IconButton
-                                style={{ marginTop: -2 }}
-                                onClick={() => {
-                                    setTfAction({
-                                        ...tfAction,
-                                        validDateUnknown: !tfAction.validDateUnknown
-                                    })
-                                }}
-                            >
-                                {!tfAction.validDateUnknown ? <BorderOutlined style={{ fontSize: '18px', color: 'red' }} /> : <CheckSquareTwoTone twoToneColor='#f50057' style={{ fontSize: '18px' }} />}
-                            </IconButton>
-                            <FormLabel component="legend"
-                                style={{ color: '#666', fontSize: 14, marginBottom: 0, marginLeft: -10, marginRight: 0, borderBottom: "0", width: 'auto', height: '40px', lineHeight: '40px' }}
-                            >不详</FormLabel>
-                        </InputAdornment>
-                    ),
-                }}
-
+                
+                InputProps={UnknownInput(value.id + "Unknown")}
+                
             />
+            )
         }
     })
 
@@ -406,7 +368,7 @@ const FormDisabledDemo: React.FC = () => {
 
                 <div className={styles.title2} style={{ marginBottom: 0 }}>药物和安全性信息</div>
                 <div className={styles.subContent} style={{ marginTop: 0 }}>
-                    {medicineTFs()}
+                    {medicineTFList}
                 </div>
 
 
