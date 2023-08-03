@@ -1,10 +1,10 @@
 
 
 export interface TextFieldInfo {
-    id: "actionType"|"infoReceiveDate"|"orgName"|"reporterNo"|
-    "orgAddress"|"itemNumber"|"WISECode"|"orgTel"|"ChimAERa"|"orgEmail"|
-    "orgLtdContact"|"orgSignatureDate"|"eventID"|"eventProductName"|"validDate"|
-    "productSymptom"|"useDose"|"lotNumber"|"option1"|"option2"|"securityInfoDes"
+    id: "actionType" | "infoReceiveDate" | "orgName" | "reporterNo" |
+    "orgAddress" | "itemNumber" | "WISECode" | "orgTel" | "ChimAERa" | "orgEmail" |
+    "orgLtdContact" | "orgSignatureDate" | "eventID" | "eventProductName" | "validDate" |
+    "productSymptom" | "useDose" | "lotNumber" | "option1" | "option2" | "securityInfoDes"
     label: string;
     defaultValue: string;
     width: string;
@@ -17,13 +17,13 @@ export enum ActionTypeEnum {
 }
 
 export enum OtherOptionEnum {
-    T = "是",
-    F = "否",
-    other = "不详"
+    true = "是",
+    false = "否",
+    unknown = "不详"
 }
 export interface IFormInput {
     //机构项目信息的表单
-    actionType: ActionTypeEnum
+    actionType: { value: string }
     infoReceiveDate: string
     orgName: string
     reporterNo: string
@@ -52,7 +52,7 @@ export interface IFormInput {
 
 //机构项目信息
 //使用for循环创建输入组件
-export const projectInfoList:TextFieldInfo[] = [
+export const projectInfoList: TextFieldInfo[] = [
     {
         id: "infoReceiveDate",
         label: "* 该机构是什么时候接收到安全性信息的（年/月/日）？",
@@ -126,7 +126,7 @@ export const projectInfoList:TextFieldInfo[] = [
 
 //药物和安全性信息
 
-export const medicineInfoList:TextFieldInfo[] = [
+export const medicineInfoList: TextFieldInfo[] = [
     {
         id: "eventID",
         width: "45%",
@@ -163,5 +163,26 @@ export const medicineInfoList:TextFieldInfo[] = [
         label: "* 批号",
         defaultValue: "",
     },
-   
+
 ]
+
+
+//单选项数据
+export const SingleSelectorDatas = {
+    //活动类型
+    actionType: [{ value: "0", label: "市场研究" }, { value: "1", label: "患者支持项目" }, { value: "2", label: "数字媒体" }],
+    //* 报告者是否认为事件可能与产品的使用有关？
+    isAE: [{ value: "true", label: "是" }, { value: "false", label: "否" }, { value: "unknown", label: "不详" }],
+    //* 使用该产品时患者是否处于妊娠期？
+    isFestation: [{ value: "true", label: "是" }, { value: "false", label: "否" }, { value: "unknown", label: "不详" }],
+    //* 性别
+    gender: [{ value: "1", label: "是" }, { value: "0", label: "否" }, { value: "unknown", label: "不详" }],
+    //* 一个/多个患者
+    patientsNum: [{ value: "0", label: "一个" }, { value: "1", label: "多个" }],
+    //* 报告者是否同意以上内容？
+    isAgree: [{ value: "1", label: "是（请回答以下问题）" }, { value: "0", label: "否（无需回答以下问题）" }],
+    //* 报告者是否同意个人信息用于与葛兰素史克安全团队取得联系，以进一步讨论？
+    isToCommunicate: [{ value: "1", label: "是" }, { value: "0", label: "否" }],
+    //* 报告者类型 
+    reporterType: [{ value: "0", label: "客户" }, { value: "1", label: "医生" }, { value: "2", label: "护士" }, { value: "3", label: "药剂师" }, { value: "4", label: "其他（详细说明）" }],
+}
