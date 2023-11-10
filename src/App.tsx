@@ -8,6 +8,7 @@ import HomeMenu from './pages/Component/HomeMenu/HomeMenu';
 import HomeHeader from './pages/Component/HomeHeader/HomeHeader';
 import HomeContent from './pages/Component/HomeContent/HomeContent';
 import TablesTest from './pages/Component/HomeContent/TablesTest';
+import { MuiPickersUtilsProvider } from "@material-ui/pickers";
 function App() {
   const [collapsed, setCollapsed] = useState(false);
   return (

@@ -1,10 +1,14 @@
 
-
+import { MuiPickersUtilsProvider } from "@material-ui/pickers";
 export interface TextFieldInfo {
     id: "actionType" | "infoReceiveDate" | "orgName" | "reporterNo" |
-    "orgAddress" | "itemNumber" | "WISECode" | "orgTel" | "ChimAERa" | "orgEmail" |
-    "orgLtdContact" | "orgSignatureDate" | "eventID" | "eventProductName" | "validDate" |
-    "productSymptom" | "useDose" | "lotNumber" | "option1" | "option2" | "securityInfoDes"
+    "orgAddress" | "itemNumber" | "WISECode" | "orgTel" | "ChimAERa" | 
+    "orgEmail" | "orgLtdContact" | "orgSignatureDate" | "eventID" | 
+    "eventProductName" | "validDate" | "productSymptom" | "useDose" | 
+    "lotNumber" | "option1" | "option2" | "securityInfoDes" |  "patientDateBirth" | 
+    "patientName" | "othersInfo" | "multiplePatientDes" | "reporterNation" | 
+    "reporterType" | "reporterName" | "reporterAddress" | "reporterPhone" | 
+    "reporterEmail" | "patientsNum"
     label: string;
     defaultValue: string;
     width: string;
@@ -35,6 +39,8 @@ export interface IFormInput {
     orgEmail: string
     orgLtdContact: string
     orgSignatureDate: string
+    patientsNum:string
+    
 
     //药物和安全性信息的表单
     eventID: string
@@ -46,10 +52,21 @@ export interface IFormInput {
     option1: OtherOptionEnum
     option2: OtherOptionEnum
     securityInfoDes: string
+    
+    //患者信息
+    patientDateBirth: string
+    patientName:string
+    othersInfo: string
+    multiplePatientDes: string
+    //发布者信息
+    reporterNation: string
+    reporterType: string
+    reporterName: string
+    reporterAddress: string
+    reporterPhone: string
+    reporterEmail: string
     //患者信息
 }
-
-
 //机构项目信息
 //使用for循环创建输入组件
 export const projectInfoList: TextFieldInfo[] = [
@@ -123,9 +140,7 @@ export const projectInfoList: TextFieldInfo[] = [
 
 
 ]
-
 //药物和安全性信息
-
 export const medicineInfoList: TextFieldInfo[] = [
     {
         id: "eventID",
@@ -165,6 +180,62 @@ export const medicineInfoList: TextFieldInfo[] = [
     },
 
 ]
+//患者信息
+export const patientInfoList : TextFieldInfo[] = [
+    {
+        id: "patientDateBirth",
+        width: "30%",
+        label: "* 年龄/出生年份",
+        defaultValue: "",
+    },
+    {
+        id: "patientName",
+        width: "30%",
+        label: "* 姓名首字母",
+        defaultValue: "",
+    },
+    {
+        id: "othersInfo",
+        width: "30%",
+        label: "* 其他 (患者编号等)",
+        defaultValue: "",
+    },
+
+]
+//报告者信息
+export const reporterInfoList : TextFieldInfo[] = [
+    {
+        id: "reporterType",
+        width: "100%",
+        label: "其他 (详细说明)",
+        defaultValue: "",
+    },
+    {
+        id: "reporterName",
+        width: "23%",
+        label: "* 报告者姓名",
+        defaultValue: "",
+    },
+    {
+        id: "reporterAddress",
+        width: "23%",
+        label: "* 报告者地址",
+        defaultValue: "", 
+    },
+    {
+        id: "reporterPhone",
+        width: "23%",
+        label: "* 报告者电话",
+        defaultValue: "", 
+    },
+    {
+        id: "reporterEmail",
+        width: "23%",
+        label: "* 报告者邮箱",
+        defaultValue: "", 
+    }
+]
+
 
 
 //单选项数据
@@ -176,7 +247,7 @@ export const SingleSelectorDatas = {
     //* 使用该产品时患者是否处于妊娠期？
     isFestation: [{ value: "true", label: "是" }, { value: "false", label: "否" }, { value: "unknown", label: "不详" }],
     //* 性别
-    gender: [{ value: "1", label: "是" }, { value: "0", label: "否" }, { value: "unknown", label: "不详" }],
+    gender: [{ value: "1", label: "男" }, { value: "0", label: "女" }, { value: "unknown", label: "不详" }],
     //* 一个/多个患者
     patientsNum: [{ value: "0", label: "一个" }, { value: "1", label: "多个" }],
     //* 报告者是否同意以上内容？
